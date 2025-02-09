@@ -2,8 +2,6 @@
 # PPS (Parcours Prévention Santé)
 Ce microservice développé en Golang permet d'extraire les données des attestations délivrées par FFA (Fédération Française d'Athlétisme) afin de connaître les informations saisies par les coureurs et leurs validités. Afin de récupérer ces informations, il suffit d'envoyer le fichier au format PDF en tant que champs `certificate` d'un formulaire à l'endpoint `/check-pdf`.
 
-Une fonctionnalité restante à être implémentée est la vérification de l'attestation auprès des serveurs de la FFA.
-
 Exemple d'intégration avec PHP (Symfony) :
 ```php
 public function postPpsCertificate(Request $request): JsonResponse
