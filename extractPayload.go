@@ -9,8 +9,10 @@ import (
 	pdfcpu "github.com/pdfcpu/pdfcpu/pkg/api"
 	"image"
 	"image/png"
+	"log"
 	"mime/multipart"
 	"net/url"
+	"strings"
 )
 
 func extractPayload(fileReader multipart.File) (*PPSPayload, error) {
@@ -77,5 +79,18 @@ func extractPayload(fileReader multipart.File) (*PPSPayload, error) {
 		return nil, err
 	}
 
-	return &payload, nil
+	payload.FirstName = strings.ToUpper(payload.FirstName)
+	payload.LastName = strings.ToUpper(payload.LastName)
+	payload.Gender = strings.ToUpper(payload.Gender)
+
+	verifiedPayload, err := verifyAuthenticity(*unsafeUrl)
+	if err != nil {
+		return nil, err
+	}
+
+	if !payload.IsSame(verifiedPayload) {
+		return nil, errors.New("payload does not match")
+	}
+
+	return verifiedPayload, nil
 }

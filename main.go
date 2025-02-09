@@ -14,6 +14,15 @@ type PPSPayload struct {
 	ExpiryDate string `json:"expiry_date"`
 }
 
+func (first *PPSPayload) IsSame(second *PPSPayload) bool {
+	return first.FirstName == second.FirstName &&
+		first.LastName == second.LastName &&
+		first.BirthDate == second.BirthDate &&
+		first.Gender == second.Gender &&
+		first.Identifier == second.Identifier &&
+		first.ExpiryDate == second.ExpiryDate
+}
+
 func main() {
 	r := gin.Default()
 	r.POST("/check-pdf", checkRoute())
