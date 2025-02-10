@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 	"log"
 )
 
@@ -24,10 +25,15 @@ func (first *PPSPayload) IsSame(second *PPSPayload) bool {
 }
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("error loading .env file")
+	}
+
 	r := gin.Default()
 	r.POST("/check-pdf", checkRoute())
 
-	err := r.Run()
+	err = r.Run()
 	if err != nil {
 		log.Fatal(err)
 		return
