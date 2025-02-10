@@ -9,7 +9,6 @@ import (
 	pdfcpu "github.com/pdfcpu/pdfcpu/pkg/api"
 	"image"
 	"image/png"
-	"log"
 	"mime/multipart"
 	"net/url"
 	"strings"
