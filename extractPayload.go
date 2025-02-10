@@ -63,8 +63,10 @@ func extractPayload(fileReader multipart.File) (*PPSPayload, error) {
 
 	queryUrl := unsafeUrl.RawQuery
 	dataUrl := queryUrl[5:]
-	if dataUrl[len(dataUrl)-1] != '=' {
-		dataUrl += "="
+
+	padding := len(dataUrl) % 4
+	if padding > 0 {
+		dataUrl += strings.Repeat("=", 4-padding)
 	}
 
 	decodedString, err := base64.URLEncoding.DecodeString(dataUrl)
